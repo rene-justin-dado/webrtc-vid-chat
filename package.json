@@ -1,0 +1,47 @@
+{
+  "name": "webrtc-vid-chat",
+  "version": "0.1.0",
+  "description": "Simple video chat app with webrtc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rene-justin-dado/webrtc-vid-chat.git"
+  },
+  "keywords": [
+    "webrtc",
+    "socketio",
+    "video",
+    "audio",
+    "chat",
+    "sockets"
+  ],
+  "author": "Justin",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/rene-justin-dado/webrtc-vid-chat/issues"
+  },
+  "homepage": "https://github.com/rene-justin-dado/webrtc-vid-chat#readme",
+  "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-register": "^6.18.0",
+    "express": "^4.14.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "socket.io": "^1.5.1",
+    "webrtc-adapter": "^2.0.6"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.3.0",
+    "eslint-plugin-react": "^6.5.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "jsx-loader": "^0.13.2",
+    "nodemon": "^1.11.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
