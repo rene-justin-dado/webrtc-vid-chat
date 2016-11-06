@@ -6,11 +6,9 @@ import App from './components/App'
 
 document.addEventListener('DOMContentLoaded', () => {
   render(
-    (
     <Router history={hashHistory}>
       <Route path='/' component={App} />
-    </Router>
-  ),
+    </Router>,
   document.getElementById('app')
   )
 })
