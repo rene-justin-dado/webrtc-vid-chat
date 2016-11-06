@@ -32,6 +32,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "socket.io": "^1.5.1",
+    "webpack": "^1.13.3",
     "webrtc-adapter": "^2.0.6"
   },
   "devDependencies": {
