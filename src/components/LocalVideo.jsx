@@ -1,6 +1,20 @@
 import React from 'react'
 
 export default React.createClass({
+  componentDidMount () {
+    const socket = io.connect()
+
+    $('form').submit(() => {
+      socket.emit('chat message', $('#m').val())
+      $('#m').val('')
+      return false
+    })
+
+    socket.on('chat message', msg => {
+      $('#messages').append($('<li>').text(msg))
+    })
+  },
+
   render () {
     return (
       <div id="local-video-container">
@@ -12,6 +26,11 @@ export default React.createClass({
           <button id="callButton">Call</button>
           <button id="hangupButton">Hang Up</button>
         </div>
+
+        <ul id="messages"></ul>
+        <form action="">
+          <input id="m" autoComplete="off" /><button>Send</button>
+        </form>
       </div>
     )
   }
