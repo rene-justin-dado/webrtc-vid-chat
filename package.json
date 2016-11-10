@@ -4,8 +4,9 @@
   "description": "Simple video chat app with webrtc",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline",
-    "build": "webpack",
+    "dev-server": "webpack-dev-server --hot --inline",
+    "nodemon": "nodemon src/server/server",
+    "build": "webpack -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -37,12 +38,14 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-router": "^3.0.0",
+    "socket.io": "^1.5.1",
     "socket.io-client": "^1.5.1",
     "socket.io-react": "^1.0.0",
     "webpack": "^1.13.3",
     "webrtc-adapter": "^2.0.6"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "eslint": "^3.9.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.3.0",
