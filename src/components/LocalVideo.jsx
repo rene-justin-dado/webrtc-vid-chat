@@ -28,7 +28,7 @@ export default React.createClass({
         </div>
 
         <ul id="messages"></ul>
-        <form action="">
+          <form action="">
           <input id="m" autoComplete="off" /><button>Send</button>
         </form>
       </div>
