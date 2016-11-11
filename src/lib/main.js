@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', initialise)
 function initialise () {
   navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+
+  if(navigator.getUserMedia) {
     // DOM interactions
     const startButton = document.getElementById('startButton')
     const callButton = document.getElementById('callButton')
@@ -15,14 +17,17 @@ function initialise () {
 
     const localVideo = document.getElementById('localVideo')
     const remoteVideo = document.getElementById('remoteVideo')
+  } else {
+    alert('Sorry, your browser does not support WebRTC!')
+  }
 
-    localVideo.addEventListener('loadedmetadata', (evt) => {
-      trace(`Local video videoWidth: ${evt.target.videoWidth} px, videoHeight: ${evt.target.videoHeight} px`)
-    })
+  localVideo.addEventListener('loadedmetadata', (evt) => {
+    trace(`Local video videoWidth: ${evt.target.videoWidth} px, videoHeight: ${evt.target.videoHeight} px`)
+  })
 
-    remoteVideo.addEventListener('loadedmetadata', (evt) => {
-      trace(`Remote video videoWidth: ${evt.target.videoWidth} px, videoHeight: ${evt.target.videoHeight} px`)
-    })
+  remoteVideo.addEventListener('loadedmetadata', (evt) => {
+    trace(`Remote video videoWidth: ${evt.target.videoWidth} px, videoHeight: ${evt.target.videoHeight} px`)
+  })
 
   remoteVideo.onresize = function() {
     trace(`Remote video size changed to ${remoteVideo.videoWidth} x ${remoteVideo.videoHeight}`)
