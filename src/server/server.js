@@ -13,8 +13,8 @@ io.on('connection', socket => {
     io.emit('chat message', msg)
   })
 
-  socket.on('onmessage', msg => {
-    io.emit(message)
+  socket.on('on call', msg => {
+    io.emit(msg)
   })
 })
 
