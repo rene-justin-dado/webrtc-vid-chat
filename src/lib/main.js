@@ -15,6 +15,14 @@ function initialise () {
     callButton.onclick = call
     hangupButton.onclick = hangup
     let startTime
+    let localStream
+    let localPC
+    let remotePC
+    let peer
+    const offerOptions = {
+      offerToReceiveAudio: 1,
+      offerToReceiveVideo: 1
+    }
 
     const localVideo = document.getElementById('localVideo')
     const remoteVideo = document.getElementById('remoteVideo')
@@ -62,13 +70,6 @@ function initialise () {
     ]
   }
 
-  let localStream
-  let localPC
-  let remotePC
-  const offerOptions = {
-    offerToReceiveAudio: 1,
-    offerToReceiveVideo: 1
-  }
 
   function getName(pc) {
     return (pc === localPC) ? 'localPC' : 'remotePC'
@@ -81,6 +82,7 @@ function initialise () {
   function callSetup() {
     peer = new webkitRTCPeerConnection(serversConfig)
     peer.onicecandidate = onIceCandidate
+    peer.onaddstream = call
   }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -120,7 +122,7 @@ function initialise () {
     // localPC.onicecandidate = evt => {
     //   onIceCandidate(localPC, evt)
     // }
-
+    window.localPC = localPC =
     callButton.disabled = true
     hangupButton.disabled = false
     trace('Starting call')
