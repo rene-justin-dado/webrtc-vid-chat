@@ -12,6 +12,10 @@ io.on('connection', socket => {
   socket.on('chat message', msg => {
     io.emit('chat message', msg)
   })
+
+  socket.on('onmessage', msg => {
+    io.emit(message)
+  })
 })
 
 app.use(express.static(__dirname + './../public'))
