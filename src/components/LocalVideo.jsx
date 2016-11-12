@@ -13,6 +13,19 @@ export default React.createClass({
     socket.on('chat message', msg => {
       $('#messages').append($('<li>').text(msg))
     })
+
+    socket.on('on call', msg => {
+      if (!peer)
+        answerCall()
+
+      if (msg.sdp) {
+        peer.setRemoteDescription(new RTCSessionDescription(msg.sdp))
+      } else if (msg.candidate) {
+        peer.addIceCandidate(new RTCIceCandidate(msg.candidate))
+      } else if (msg.closeConnection) {
+        endCall()
+      }
+    })
   },
 
   render () {
