@@ -42,7 +42,7 @@ function initialise () {
 
 
   // stun/turn server config
-  const servers = {
+  const serversConfig = {
     'iceServers': [
       {url:'stun:stun01.sipphone.com'},
       {url:'stun:stun.ekiga.net'},
@@ -97,6 +97,11 @@ function initialise () {
     return (pc === localPC) ? remotePC : localPC
   }
 
+  function callSetup() {
+    peer = new webkitRTCPeerConnection(serversConfig)
+    peer.onicecandidate = onIceCandidate
+  }
+
 ///////////////////////////////////////////////////////////////////////////////
   // Set Up Local Stream upon 'start'
   function gotStream (stream) {
@@ -129,18 +134,11 @@ function initialise () {
   // Handle Remote stream
   function call () {
     // Add localPC to global scope so it's accessible from the browser console
-    window.localPC = localPC = new webkitRTCPeerConnection(servers)
-    trace('Created local peer connection object for localPC (available in global scope)')
-    localPC.onicecandidate = evt => {
-      onIceCandidate(localPC, evt)
-    }
-
-    // Add remotePC to global scope so it's accessible from the browser console
-    window.remotePC = remotePC = new webkitRTCPeerConnection(servers)
-    trace('Created remote peer connection object for remotePC (available in global scope)')
-    remotePC.onicecandidate = evt => {
-      onIceCandidate(remotePC, evt)
-    }
+    // window.localPC = localPC = new webkitRTCPeerConnection(servers)
+    // trace('Created local peer connection object for localPC (available in global scope)')
+    // localPC.onicecandidate = evt => {
+    //   onIceCandidate(localPC, evt)
+    // }
 
     callButton.disabled = true
     hangupButton.disabled = false
@@ -181,7 +179,7 @@ function initialise () {
   }
 ///////////////////////////////////////////////////////////////////////////////
 
-  function gotRemoteStream(e) {
+  function gotRemoteStream(evt) {
     // Add remoteStream to global scope so it's accessible from the browser console
     window.remoteStream = remoteVideo.srcObject = e.stream
     trace('remotePC received remote stream')
