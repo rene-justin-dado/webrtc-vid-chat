@@ -9,8 +9,6 @@ const PORT = process.env.PORT || 5000
 
 io.on('connection', socket => {
   console.log('a user connected')
-  socket.on()
-
   socket.on('chat message', msg => {
     io.emit('chat message', msg)
   })
