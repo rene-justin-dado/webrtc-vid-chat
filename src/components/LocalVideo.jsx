@@ -31,6 +31,8 @@ export default React.createClass({
           <form action="">
           <input id="m" autoComplete="off" /><button>Send</button>
         </form>
+
+        <script src="../lib/main.js"></script>
       </div>
     )
   }
