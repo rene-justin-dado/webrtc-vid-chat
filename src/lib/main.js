@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', initialise)
 function initialise () {
+  module.exports = {
+    onIceCandidate
+  }
   window.alert("Hello")
   navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia
@@ -9,7 +12,7 @@ function initialise () {
     const startButton = document.getElementById('startButton')
     const callButton = document.getElementById('callButton')
     const hangupButton = document.getElementById('hangupButton')
-      callButton.disabled = true
+    callButton.disabled = true
     hangupButton.disabled = true
     startButton.onclick = start
     callButton.onclick = call
@@ -152,11 +155,11 @@ function initialise () {
   }
 
   function onIceCandidate (pc, evt) {
-    if (evt.candidate) {
-      getOtherPc(pc).addIceCandidate(new RTCIceCandidate(evt.candidate))
+    if (!evt || !evt.candidate) return
+    socket.emit(evt)
+    getOtherPc(pc).addIceCandidate(new RTCIceCandidate(evt.candidate))
       .then(() => onAddIceCandidateSuccess)
       .catch(err => onAddIceCandidateError(pc, err))
-    }
   }
 ///////////////////////////////////////////////////////////////////////////////
 
