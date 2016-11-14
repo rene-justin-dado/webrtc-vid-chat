@@ -9,7 +9,7 @@ function initialise () {
     const startButton = document.getElementById('startButton')
     const callButton = document.getElementById('callButton')
     const hangupButton = document.getElementById('hangupButton')
-    callButton.disabled = true
+      callButton.disabled = true
     hangupButton.disabled = true
     startButton.onclick = start
     callButton.onclick = call
@@ -79,9 +79,11 @@ function initialise () {
     return (pc === localPC) ? remotePC : localPC
   }
 
-  function callSetup() {
+  function prepareCall() {
     peer = new webkitRTCPeerConnection(serversConfig)
+    // send any ice candidates to the other peer
     peer.onicecandidate = onIceCandidate
+    // once remote stream arrives, show it in the remote video element
     peer.onaddstream = call
   }
 
@@ -110,19 +112,15 @@ function initialise () {
       }
     })
     .then(gotStream)
+    .then(prepareCall)
     .catch(err => console.error(err.name))
   }
 
-///////////////////////////////////////////////////////////////////////////////
   // Handle Remote stream
   function call () {
-    // Add localPC to global scope so it's accessible from the browser console
-    // window.localPC = localPC = new webkitRTCPeerConnection(servers)
-    // trace('Created local peer connection object for localPC (available in global scope)')
-    // localPC.onicecandidate = evt => {
-    //   onIceCandidate(localPC, evt)
-    // }
-    window.localPC = localPC =
+    prepareCall()
+
+    window.localPC = localPC = peer
     callButton.disabled = true
     hangupButton.disabled = false
     trace('Starting call')
