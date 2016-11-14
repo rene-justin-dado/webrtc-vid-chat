@@ -1,9 +1,9 @@
 import React from 'react'
+import onIceCandidate from '../lib/main.js'
 
 export default React.createClass({
   componentDidMount () {
     const socket = io.connect()
-
     $('form').submit(() => {
       socket.emit('chat message', $('#m').val())
       $('#m').val('')
