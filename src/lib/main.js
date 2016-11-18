@@ -127,10 +127,7 @@ function start () {
       .then(
         (offer) => {
           const off = new RTCSessionDescription(offer)
-          return peer.setLocalDescription(
-            new RTCSessionDescription(off)
-            () =>
-          )
+          peer.setLocalDescription(new RTCSessionDescription(off))
       })
       .then(socket.emit({'sdp': off}))
       .catch(err => console.error(err.name))
