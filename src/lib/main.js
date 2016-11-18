@@ -88,40 +88,55 @@ function initialise () {
     // send any ice candidates to the other peer
     peer.onicecandidate = onIceCandidate
     // once remote stream arrives, show it in the remote video element
-    peer.onaddstream = call
+    peer.onaddstream = call(peer)
   }
 
 ///////////////////////////////////////////////////////////////////////////////
+function start () {
+  prepareCall()
+  startButton.disabled=true
+  navigator.mediaDevices.getUserMedia({
+    audio:true,
+    video: {
+      width: 320
+    }
+  })
+  .then(gotStream)
+  .catch(err => console.error(err.name))
+}
+
   // Set Up Local Stream upon 'start'
   function gotStream (stream) {
     // Add localStream to global scope so it's accessible from the browser console
+    callButton.disabled = false
     window.localStream = localStream = stream
     trace('Received local stream (this is the result of the success callback of getUserMedia)')
 
-    callButton.disabled = false
     if (window.URL) {
       localVideo.src = window.URL.createObjectURL(stream)
       localVideo.srcObject = stream
     } else {
       localVideo.src = stream
     }
+    peer.addStream(localStream)
+    createAndSendOffer()
   }
 
-  function start () {
-    startButton.disabled=true
-    navigator.mediaDevices.getUserMedia({
-      audio:true,
-      video: {
-        width: 320
-      }
-    })
-    .then(gotStream)
-    .then(prepareCall)
-    .catch(err => console.error(err.name))
+  function createAndSendOffer () {
+    peer.createOffer()
+      .then(
+        (offer) => {
+          const off = new RTCSessionDescription(offer)
+          return peer.setLocalDescription(
+            new RTCSessionDescription(off)
+            () =>
+          )
+      })
+      .then(socket.emit({'sdp': off}))
+      .catch(err => console.error(err.name))
   }
-
   // Handle Remote stream
-  function call () {
+  function call (peer) {
     prepareCall()
 
     window.localPC = localPC = peer
