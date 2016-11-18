@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', initialise)
 function initialise () {
   module.exports = {
-    onIceCandidate
+    onIceCandidate,
+    prepareCall
   }
   window.alert("Hello")
   navigator.getUserMedia = navigator.getUserMedia ||
@@ -83,7 +84,7 @@ function initialise () {
   }
 
   function prepareCall() {
-    peer = new webkitRTCPeerConnection(serversConfig)
+    peer = new RTCPeerConnection(serversConfig)
     // send any ice candidates to the other peer
     peer.onicecandidate = onIceCandidate
     // once remote stream arrives, show it in the remote video element
