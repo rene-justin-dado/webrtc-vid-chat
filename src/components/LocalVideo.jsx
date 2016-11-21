@@ -1,5 +1,4 @@
 import React from 'react'
-import {onIceCandidate, prepareCall} from '../lib/main.js'
 
 export default React.createClass({
   componentDidMount () {
