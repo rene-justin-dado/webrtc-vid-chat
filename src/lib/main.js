@@ -1,9 +1,5 @@
 document.addEventListener('DOMContentLoaded', initialise)
 function initialise () {
-  module.exports = {
-    onIceCandidate,
-    prepareCall
-  }
   window.alert("Hello")
   navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia
